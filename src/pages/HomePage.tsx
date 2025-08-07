@@ -2,8 +2,11 @@ import React from "react";
 import {
   Hero,
   PersonalizedRecommendations,
+  TrendingRecipes,
   FeaturedRecipes,
+  ChefSpotlight,
   CuisineExplorer,
+  CommunityStats,
 } from "../components";
 
 const HomePage: React.FC = () => {
@@ -11,8 +14,11 @@ const HomePage: React.FC = () => {
     <>
       <Hero />
       <PersonalizedRecommendations />
+      <TrendingRecipes />
       <FeaturedRecipes />
+      <ChefSpotlight />
       <CuisineExplorer />
+      <CommunityStats />
     </>
   );
 };
