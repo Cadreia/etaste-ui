@@ -80,13 +80,28 @@ const Hero: React.FC = () => {
           <div className="flex items-center justify-center order-1 lg:order-2">
             <div className="relative w-full max-w-xs sm:max-w-sm lg:max-w-sm xl:max-w-md">
               <div className="relative aspect-square rounded-2xl overflow-hidden shadow-lg group">
+                {/* Background overlay with gradient animation */}
+                <div className="absolute inset-0 bg-gradient-to-br from-orange-500/20 via-transparent to-orange-600/30 opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-10"></div>
+
+                {/* Image with sophisticated transform */}
                 <img
                   src={currentDish.image}
                   alt={currentDish.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-110 group-hover:rotate-1 group-hover:brightness-110 group-hover:contrast-105"
                 />
-                {/* Professional overlay on hover */}
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300"></div>
+
+                {/* Animated accent border */}
+                <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-orange-400/60 transition-all duration-500 z-20"></div>
+
+                {/* Floating particles effect */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 z-30">
+                  <div className="absolute top-1/4 left-1/4 w-1 h-1 bg-orange-300 rounded-full animate-pulse delay-100"></div>
+                  <div className="absolute top-3/4 right-1/4 w-1.5 h-1.5 bg-orange-400 rounded-full animate-pulse delay-300"></div>
+                  <div className="absolute bottom-1/3 left-1/3 w-1 h-1 bg-orange-200 rounded-full animate-pulse delay-500"></div>
+                </div>
+
+                {/* Subtle shine effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out z-40"></div>
               </div>
 
               {/* Navigation Dots */}
