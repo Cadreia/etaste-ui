@@ -1,8 +1,28 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Link } from "react-router-dom";
-import { Clock, Star } from "lucide-react";
+import { Clock, Star, ChevronLeft, ChevronRight } from "lucide-react";
 
 const PersonalizedRecommendations: React.FC = () => {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const scrollLeft = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({
+        left: -300,
+        behavior: "smooth",
+      });
+    }
+  };
+
+  const scrollRight = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({
+        left: 300,
+        behavior: "smooth",
+      });
+    }
+  };
+
   const recommendations = [
     {
       id: 1,
@@ -64,7 +84,7 @@ const PersonalizedRecommendations: React.FC = () => {
   return (
     <section className="py-12 sm:py-16 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-8 sm:mb-12">
+        <div className="text-center mb-8 sm:mb-12">
           <h2 className="text-2xl sm:text-3xl font-light text-gray-900 mb-2">
             Recommended for You
           </h2>
@@ -73,55 +93,76 @@ const PersonalizedRecommendations: React.FC = () => {
           </p>
         </div>
 
-        {/* Horizontal Scrollable Cards */}
-        <div className="overflow-x-auto -mx-4 sm:mx-0">
-          <div
-            className="flex space-x-4 sm:space-x-6 pb-4 px-4 sm:px-0"
-            style={{ width: "max-content" }}
+        {/* Horizontal Scrollable Cards with Navigation */}
+        <div className="relative group">
+          {/* Left Scroll Button */}
+          <button
+            onClick={scrollLeft}
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 backdrop-blur-sm hover:bg-white shadow-lg rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden sm:block"
+            aria-label="Scroll left"
           >
-            {recommendations.map((recipe) => (
-              <Link
-                key={recipe.id}
-                to={`/recipe/${recipe.id}`}
-                className="group flex-shrink-0 w-56 sm:w-64"
-              >
-                <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden">
-                  <div className="relative">
-                    <img
-                      src={recipe.image}
-                      alt={recipe.title}
-                      className="w-full h-32 sm:h-40 object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                    <div className="absolute top-2 sm:top-3 left-2 sm:left-3 bg-white/90 backdrop-blur-sm rounded-full px-2 py-1 text-xs font-medium flex items-center">
-                      <span className="mr-1">{recipe.flag}</span>
-                      {recipe.cuisine}
-                    </div>
-                  </div>
+            <ChevronLeft className="w-5 h-5 text-gray-600" />
+          </button>
 
-                  <div className="p-3 sm:p-4">
-                    <h3 className="font-medium text-gray-900 mb-2 sm:mb-3 group-hover:text-orange-500 transition-colors text-sm sm:text-base">
-                      {recipe.title}
-                    </h3>
+          {/* Right Scroll Button */}
+          <button
+            onClick={scrollRight}
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 backdrop-blur-sm hover:bg-white shadow-lg rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden sm:block"
+            aria-label="Scroll right"
+          >
+            <ChevronRight className="w-5 h-5 text-gray-600" />
+          </button>
 
-                    <div className="flex items-center justify-between text-xs sm:text-sm text-gray-500">
-                      <div className="flex items-center space-x-2 sm:space-x-3">
-                        <div className="flex items-center">
-                          <Clock className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
-                          {recipe.prepTime}m
-                        </div>
-                        <div className="flex items-center">
-                          <Star className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-400 mr-1" />
-                          {recipe.rating}
-                        </div>
+          {/* Carousel Container */}
+          <div
+            ref={scrollRef}
+            className="overflow-x-auto scrollbar-hide -mx-4 sm:mx-0"
+          >
+            <div className="flex space-x-4 sm:space-x-6 pb-4 px-4 sm:px-0 min-w-max">
+              {recommendations.map((recipe) => (
+                <Link
+                  key={recipe.id}
+                  to={`/recipe/${recipe.id}`}
+                  className="group flex-shrink-0 w-56 sm:w-64"
+                >
+                  <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden">
+                    <div className="relative">
+                      <img
+                        src={recipe.image}
+                        alt={recipe.title}
+                        className="w-full h-32 sm:h-40 object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <div className="absolute top-2 sm:top-3 left-2 sm:left-3 bg-white/90 backdrop-blur-sm rounded-full px-2 py-1 text-xs font-medium flex items-center">
+                        <span className="mr-1">{recipe.flag}</span>
+                        {recipe.cuisine}
                       </div>
-                      <span className="text-orange-500 font-medium text-xs">
-                        {recipe.difficulty}
-                      </span>
+                    </div>
+
+                    <div className="p-3 sm:p-4">
+                      <h3 className="font-medium text-gray-900 mb-2 sm:mb-3 group-hover:text-orange-500 transition-colors text-sm sm:text-base">
+                        {recipe.title}
+                      </h3>
+
+                      <div className="flex items-center justify-between text-xs sm:text-sm text-gray-500">
+                        <div className="flex items-center space-x-2 sm:space-x-3">
+                          <div className="flex items-center">
+                            <Clock className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
+                            {recipe.prepTime}m
+                          </div>
+                          <div className="flex items-center">
+                            <Star className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-400 mr-1" />
+                            {recipe.rating}
+                          </div>
+                        </div>
+                        <span className="text-orange-500 font-medium text-xs">
+                          {recipe.difficulty}
+                        </span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </Link>
-            ))}
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </div>
