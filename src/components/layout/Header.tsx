@@ -1,111 +1,111 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Search, Menu, X, User, Heart, ShoppingCart } from 'lucide-react';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { Menu, X } from "lucide-react";
 
-interface HeaderProps {
-  user: any;
-}
-
-const Header: React.FC<HeaderProps> = ({ user }) => {
-  const [searchQuery, setSearchQuery] = useState('');
+const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const navigate = useNavigate();
-
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
-    }
-  };
 
   return (
-    <header className="bg-white shadow-sm sticky top-0 z-50">
+    <header className="bg-white border-b border-gray-100 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-14 sm:h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-orange-500 to-red-500 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-lg">e</span>
+          <Link to="/" className="flex items-center space-x-2 sm:space-x-3">
+            <div className="w-7 h-7 sm:w-8 sm:h-8 bg-orange-500 rounded-lg flex items-center justify-center">
+              <span className="text-white font-bold text-base sm:text-lg">
+                e
+              </span>
             </div>
-            <span className="text-xl font-bold text-gray-900">Taste</span>
+            <span className="text-lg sm:text-xl font-medium text-gray-900">
+              eTaste
+            </span>
           </Link>
 
-          {/* Search Bar - Desktop */}
-          <form onSubmit={handleSearch} className="hidden md:flex flex-1 max-w-lg mx-8">
-            <div className="relative w-full">
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search recipes, cuisines, ingredients..."
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
-              />
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-            </div>
-          </form>
-
           {/* Navigation - Desktop */}
-          <nav className="hidden md:flex items-center space-x-6">
-            <Link to="/" className="text-gray-700 hover:text-orange-500 transition-colors">
-              Discover
+          <nav className="hidden lg:flex items-center space-x-6 xl:space-x-8">
+            <Link
+              to="/"
+              className="text-gray-700 hover:text-orange-500 transition-colors font-medium"
+            >
+              Home
             </Link>
-            <Link to="/cuisines" className="text-gray-700 hover:text-orange-500 transition-colors">
+            <Link
+              to="/recipes"
+              className="text-gray-700 hover:text-orange-500 transition-colors font-medium"
+            >
+              Recipes
+            </Link>
+            <Link
+              to="/cuisines"
+              className="text-gray-700 hover:text-orange-500 transition-colors font-medium"
+            >
               Cuisines
             </Link>
-            <Link to="/favorites" className="text-gray-700 hover:text-orange-500 transition-colors flex items-center">
-              <Heart className="w-4 h-4 mr-1" />
-              Favorites
-            </Link>
-            <Link to="/pantry" className="text-gray-700 hover:text-orange-500 transition-colors flex items-center">
-              <ShoppingCart className="w-4 h-4 mr-1" />
-              Pantry
-            </Link>
-            <Link to="/profile" className="flex items-center space-x-2 text-gray-700 hover:text-orange-500 transition-colors">
-              <User className="w-4 h-4" />
-              <span>Profile</span>
-            </Link>
           </nav>
+
+          {/* Right Side */}
+          <div className="hidden lg:flex items-center space-x-3 xl:space-x-4">
+            {/* Language Selector */}
+            <div className="relative">
+              <select className="appearance-none bg-white border border-gray-200 rounded-md px-2 py-1.5 text-xs xl:text-sm text-gray-700 hover:border-orange-300 focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200">
+                <option value="en">🇺🇸 EN</option>
+                <option value="es">🇪🇸 ES</option>
+                <option value="fr">🇫🇷 FR</option>
+                <option value="it">🇮🇹 IT</option>
+                <option value="ja">🇯🇵 JP</option>
+              </select>
+            </div>
+            <Link
+              to="/profile"
+              className="bg-orange-500 text-white px-3 py-1.5 xl:px-4 xl:py-2 rounded-md text-sm font-medium hover:bg-orange-600 transition-colors duration-200"
+            >
+              Sign In
+            </Link>
+          </div>
 
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
+            className="lg:hidden p-1.5 sm:p-2 rounded-md hover:bg-gray-100 transition-colors"
           >
-            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {isMenuOpen ? (
+              <X className="w-5 h-5 sm:w-6 sm:h-6" />
+            ) : (
+              <Menu className="w-5 h-5 sm:w-6 sm:h-6" />
+            )}
           </button>
         </div>
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden border-t border-gray-200 py-4">
-            <form onSubmit={handleSearch} className="mb-4">
-              <div className="relative">
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search recipes..."
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                />
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-              </div>
-            </form>
-            <nav className="space-y-2">
-              <Link to="/" className="block py-2 text-gray-700 hover:text-orange-500">
-                Discover
+          <div className="lg:hidden border-t border-gray-100 py-3 sm:py-4">
+            <nav className="space-y-2 sm:space-y-3">
+              <Link
+                to="/"
+                className="block py-2 text-gray-700 hover:text-orange-500 font-medium"
+              >
+                Home
               </Link>
-              <Link to="/cuisines" className="block py-2 text-gray-700 hover:text-orange-500">
+              <Link
+                to="/recipes"
+                className="block py-2 text-gray-700 hover:text-orange-500 font-medium"
+              >
+                Recipes
+              </Link>
+              <Link
+                to="/cuisines"
+                className="block py-2 text-gray-700 hover:text-orange-500 font-medium"
+              >
                 Cuisines
               </Link>
-              <Link to="/favorites" className="block py-2 text-gray-700 hover:text-orange-500">
-                Favorites
-              </Link>
-              <Link to="/pantry" className="block py-2 text-gray-700 hover:text-orange-500">
-                Pantry
-              </Link>
-              <Link to="/profile" className="block py-2 text-gray-700 hover:text-orange-500">
-                Profile
-              </Link>
+              <div className="pt-3 border-t border-gray-100">
+                <Link
+                  to="/profile"
+                  className="block w-full text-center bg-orange-500 text-white py-2 rounded-lg font-medium hover:bg-orange-600 transition-colors duration-200"
+                >
+                  Sign In
+                </Link>
+              </div>
             </nav>
           </div>
         )}
