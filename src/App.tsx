@@ -1,25 +1,35 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Header from './components/layout/Header';
-import Hero from './components/home/Hero';
-import FeaturedRecipes from './components/home/FeaturedRecipes';
-import CuisineExplorer from './components/home/CuisineExplorer';
-import RecipeDetail from './components/recipes/RecipeDetail';
-import SearchResults from './components/search/SearchResults';
-import Profile from './components/profile/Profile';
-import CookMode from './components/cooking/CookMode';
-import Onboarding from './components/onboarding/Onboarding';
-import Footer from './components/layout/Footer';
+import { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Header, Footer } from "./components";
+import {
+  HomePage,
+  RecipeDetailPage,
+  SearchResultsPage,
+  ProfilePage,
+  CookModePage,
+  OnboardingPage,
+} from "./pages";
+import { User, OnboardingData } from "./types";
 
 function App() {
   const [showOnboarding, setShowOnboarding] = useState(true);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<User | null>(null);
 
   if (showOnboarding) {
-    return <Onboarding onComplete={(userData) => {
-      setUser(userData);
-      setShowOnboarding(false);
-    }} />;
+    return (
+      <OnboardingPage
+        onComplete={(userData: OnboardingData) => {
+          const newUser: User = {
+            id: "1",
+            name: userData.name,
+            email: userData.email,
+            preferences: userData.preferences,
+          };
+          setUser(newUser);
+          setShowOnboarding(false);
+        }}
+      />
+    );
   }
 
   return (
@@ -28,17 +38,11 @@ function App() {
         <Header user={user} />
         <main>
           <Routes>
-            <Route path="/" element={
-              <>
-                <Hero />
-                <FeaturedRecipes />
-                <CuisineExplorer />
-              </>
-            } />
-            <Route path="/recipe/:id" element={<RecipeDetail />} />
-            <Route path="/search" element={<SearchResults />} />
-            <Route path="/profile" element={<Profile user={user} />} />
-            <Route path="/cook/:id" element={<CookMode />} />
+            <Route path="/" element={<HomePage />} />
+            <Route path="/recipe/:id" element={<RecipeDetailPage />} />
+            <Route path="/search" element={<SearchResultsPage />} />
+            <Route path="/profile" element={<ProfilePage user={user} />} />
+            <Route path="/cook/:id" element={<CookModePage />} />
           </Routes>
         </main>
         <Footer />
