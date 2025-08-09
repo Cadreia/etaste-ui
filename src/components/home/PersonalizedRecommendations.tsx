@@ -139,7 +139,7 @@ const PersonalizedRecommendations: React.FC = () => {
                     </div>
 
                     <div className="p-3 sm:p-4">
-                      <h3 className="font-medium text-gray-900 mb-2 sm:mb-3 group-hover:text-orange-500 transition-colors text-sm sm:text-base">
+                      <h3 className="font-medium text-gray-900 mb-2 sm:mb-3 transition-colors text-sm sm:text-base">
                         {recipe.title}
                       </h3>
 
