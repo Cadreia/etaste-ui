@@ -87,64 +87,59 @@ const AuthPage: React.FC<AuthPageProps> = ({
   };
 
   return (
-    <div className="min-h-screen flex">
+    <div className="min-h-screen flex bg-gray-50">
       {/* Left Side - Branding & Info */}
-      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-orange-500 via-orange-600 to-orange-700 relative overflow-hidden">
+      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 relative overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0">
-          <div className="absolute top-0 left-0 w-full h-full opacity-10">
-            <div className="absolute top-20 left-20 w-64 h-64 border border-white/20 rounded-full"></div>
-            <div className="absolute bottom-20 right-20 w-96 h-96 border border-white/10 rounded-full"></div>
-            <div className="absolute top-1/2 left-1/3 w-48 h-48 bg-white/5 rounded-full blur-3xl"></div>
+          <div className="absolute top-0 left-0 w-full h-full opacity-5">
+            <div className="absolute top-32 left-16 w-72 h-72 border border-white/10 rounded-full"></div>
+            <div className="absolute bottom-32 right-16 w-96 h-96 border border-orange-500/20 rounded-full"></div>
+            <div className="absolute top-1/3 right-1/4 w-64 h-64 bg-orange-500/5 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-1/4 left-1/4 w-80 h-80 bg-blue-500/3 rounded-full blur-3xl"></div>
           </div>
+          {/* Subtle Grid Pattern */}
+          <div
+            className="absolute inset-0 opacity-[0.02]"
+            style={{
+              backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
+              backgroundSize: "24px 24px",
+            }}
+          ></div>
         </div>
 
-        <div className="relative z-10 flex flex-col justify-center px-12 text-white">
-          <div className="max-w-md">
-            <div className="mb-8">
-              <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-3xl flex items-center justify-center mb-6">
+        <div className="relative z-10 flex flex-col justify-center items-center px-12 text-white">
+          <div className="max-w-md text-left">
+            <div className="mb-16">
+              <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center mb-8 shadow-xl">
                 <ChefHat className="w-8 h-8 text-white" />
               </div>
-              <h1 className="text-4xl font-bold mb-4">
-                Discover Authentic Flavors
+              <h1 className="text-4xl font-semibold mb-6 leading-tight">
+                Master Global Cuisines
               </h1>
-              <p className="text-lg text-orange-100 leading-relaxed">
-                Join thousands of food enthusiasts exploring traditional recipes
-                from cultures around the world. Your culinary adventure starts
-                here.
+              <p className="text-xl text-gray-300 leading-relaxed font-light">
+                Discover authentic recipes from cultures around the world and
+                connect with passionate home cooks.
               </p>
             </div>
 
-            <div className="space-y-4">
-              <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
-                  <span className="text-sm">🌍</span>
-                </div>
-                <span className="text-orange-100">
-                  Recipes from 50+ countries
-                </span>
+            <div className="flex justify-center space-x-12 text-sm">
+              <div className="text-center">
+                <div className="text-3xl font-bold text-white mb-1">50k+</div>
+                <div className="text-gray-400">Recipes</div>
               </div>
-              <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
-                  <span className="text-sm">👥</span>
-                </div>
-                <span className="text-orange-100">
-                  Community of 100k+ cooks
-                </span>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-white mb-1">120+</div>
+                <div className="text-gray-400">Countries</div>
               </div>
-              <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
-                  <span className="text-sm">⭐</span>
-                </div>
-                <span className="text-orange-100">
-                  Expert-verified authentic recipes
-                </span>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-white mb-1">4.9★</div>
+                <div className="text-gray-400">Rating</div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-
+      </div>{" "}
       {/* Right Side - Form */}
       <div className="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 bg-gray-50">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
