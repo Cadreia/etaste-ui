@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
+import { User } from "../../types";
 
-const Header: React.FC = () => {
+interface HeaderProps {
+  user?: User | null;
+}
+
+const Header: React.FC<HeaderProps> = ({ user }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
@@ -30,16 +35,28 @@ const Header: React.FC = () => {
               Home
             </Link>
             <Link
+              to="/explore"
+              className="text-gray-700 hover:text-orange-500 transition-colors font-medium"
+            >
+              Explore
+            </Link>
+            <Link
               to="/recipes"
               className="text-gray-700 hover:text-orange-500 transition-colors font-medium"
             >
               Recipes
             </Link>
             <Link
-              to="/cuisines"
+              to="/store-finder"
               className="text-gray-700 hover:text-orange-500 transition-colors font-medium"
             >
-              Cuisines
+              Stores
+            </Link>
+            <Link
+              to="/pantry"
+              className="text-gray-700 hover:text-orange-500 transition-colors font-medium"
+            >
+              My Pantry
             </Link>
           </nav>
 
@@ -55,12 +72,32 @@ const Header: React.FC = () => {
                 <option value="ja">🇯🇵 JP</option>
               </select>
             </div>
-            <Link
-              to="/profile"
-              className="bg-orange-500 text-white px-3 py-1.5 xl:px-4 xl:py-2 rounded-md text-sm font-medium hover:bg-orange-600 transition-colors duration-200"
-            >
-              Sign In
-            </Link>
+            {user ? (
+              <div className="flex items-center gap-2">
+                <Link
+                  to="/profile"
+                  className="text-gray-700 hover:text-orange-500 transition-colors font-medium"
+                >
+                  Profile
+                </Link>
+                <Link
+                  to="/settings"
+                  className="text-gray-700 hover:text-orange-500 transition-colors font-medium"
+                >
+                  Settings
+                </Link>
+                <button className="bg-gray-200 text-gray-700 px-3 py-1.5 xl:px-4 xl:py-2 rounded-md text-sm font-medium hover:bg-gray-300 transition-colors duration-200">
+                  Sign Out
+                </button>
+              </div>
+            ) : (
+              <Link
+                to="/auth"
+                className="bg-orange-500 text-white px-3 py-1.5 xl:px-4 xl:py-2 rounded-md text-sm font-medium hover:bg-orange-600 transition-colors duration-200"
+              >
+                Sign In
+              </Link>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -87,24 +124,56 @@ const Header: React.FC = () => {
                 Home
               </Link>
               <Link
+                to="/explore"
+                className="block py-2 text-gray-700 hover:text-orange-500 font-medium"
+              >
+                Explore
+              </Link>
+              <Link
                 to="/recipes"
                 className="block py-2 text-gray-700 hover:text-orange-500 font-medium"
               >
                 Recipes
               </Link>
               <Link
-                to="/cuisines"
+                to="/store-finder"
                 className="block py-2 text-gray-700 hover:text-orange-500 font-medium"
               >
-                Cuisines
+                Stores
+              </Link>
+              <Link
+                to="/pantry"
+                className="block py-2 text-gray-700 hover:text-orange-500 font-medium"
+              >
+                My Pantry
               </Link>
               <div className="pt-3 border-t border-gray-100">
-                <Link
-                  to="/profile"
-                  className="block w-full text-center bg-orange-500 text-white py-2 rounded-lg font-medium hover:bg-orange-600 transition-colors duration-200"
-                >
-                  Sign In
-                </Link>
+                {user ? (
+                  <div className="space-y-2">
+                    <Link
+                      to="/profile"
+                      className="block py-2 text-gray-700 hover:text-orange-500 font-medium"
+                    >
+                      Profile
+                    </Link>
+                    <Link
+                      to="/settings"
+                      className="block py-2 text-gray-700 hover:text-orange-500 font-medium"
+                    >
+                      Settings
+                    </Link>
+                    <button className="block w-full text-center bg-gray-200 text-gray-700 py-2 rounded-lg font-medium hover:bg-gray-300 transition-colors duration-200">
+                      Sign Out
+                    </button>
+                  </div>
+                ) : (
+                  <Link
+                    to="/auth"
+                    className="block w-full text-center bg-orange-500 text-white py-2 rounded-lg font-medium hover:bg-orange-600 transition-colors duration-200"
+                  >
+                    Sign In
+                  </Link>
+                )}
               </div>
             </nav>
           </div>
